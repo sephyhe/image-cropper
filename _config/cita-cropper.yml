@@ -10,4 +10,4 @@ SilverStripe\Assets\Storage\DBFile:
 
 # SilverStripe\Admin\LeftAndMain:
 #   extra_requirements_javascript:
-#     - 'PATH_TO_CITA_CROPPER_MODULE/client/js/s3-workaround.js'
+#     - 'resources/vendor/cita/image-cropper/client/js/s3-workaround.js'

@@ -44,3 +44,11 @@ It's a continious development of Salted Herring's Cropper Field for SilverStripe
     $Photo.Cropped
     $Photo.Cropped.SetWidth(100)
     ```
+
+### AWS support
+If you are using SS's S3 assets module to store your images, you may also want to add this into your site's config yaml
+```
+SilverStripe\Admin\LeftAndMain:
+  extra_requirements_javascript:
+    - 'resources/vendor/cita/image-cropper/client/js/s3-workaround.js'
+```
