@@ -87,7 +87,7 @@ class Cropper {
         return;
       }
 
-      // e.g.: "http://example.com/img/picture.jpg"
+      // e.g.: "https://example.com/img/picture.jpg"
       url = element.src;
     } else if (tagName === 'canvas' && window.HTMLCanvasElement) {
       url = element.toDataURL();
@@ -167,7 +167,8 @@ class Cropper {
       url = addTimestamp(url);
     }
 
-    xhr.open('GET', url);
+    // The third parameter is required for avoiding side-effect (#682)
+    xhr.open('GET', url, true);
     xhr.responseType = 'arraybuffer';
     xhr.withCredentials = element.crossOrigin === 'use-credentials';
     xhr.send();
@@ -249,6 +250,7 @@ class Cropper {
         naturalHeight,
         aspectRatio: naturalWidth / naturalHeight,
       });
+      this.initialImageData = assign({}, this.imageData);
       this.sizing = false;
       this.sized = true;
       this.build();

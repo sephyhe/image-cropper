@@ -10,8 +10,6 @@ import {
   EVENT_CROP_END,
   EVENT_CROP_MOVE,
   EVENT_CROP_START,
-  MIN_CONTAINER_WIDTH,
-  MIN_CONTAINER_HEIGHT,
   REGEXP_ACTIONS,
 } from './constants';
 import {
@@ -28,19 +26,17 @@ import {
 
 export default {
   resize() {
-    const { options, container, containerData } = this;
-    const minContainerWidth = Number(options.minContainerWidth) || MIN_CONTAINER_WIDTH;
-    const minContainerHeight = Number(options.minContainerHeight) || MIN_CONTAINER_HEIGHT;
-
-    if (this.disabled || containerData.width <= minContainerWidth
-      || containerData.height <= minContainerHeight) {
+    if (this.disabled) {
       return;
     }
 
-    const ratio = container.offsetWidth / containerData.width;
+    const { options, container, containerData } = this;
+    const ratioX = container.offsetWidth / containerData.width;
+    const ratioY = container.offsetHeight / containerData.height;
+    const ratio = Math.abs(ratioX - 1) > Math.abs(ratioY - 1) ? ratioX : ratioY;
 
     // Resize when width changed or height changed
-    if (ratio !== 1 || container.offsetHeight !== containerData.height) {
+    if (ratio !== 1) {
       let canvasData;
       let cropBoxData;
 
